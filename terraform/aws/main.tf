@@ -61,6 +61,7 @@ resource "aws_instance" "packer-shell" {
 
   tags = {
     Name = "Packer-Shell"
+    Project = "JRAnsible"
   }
 }
 
@@ -94,6 +95,7 @@ EOD
 
   tags = {
     Name = "Packer-Ansible"
+    Project = "JRAnsible"
   }
 }
 
