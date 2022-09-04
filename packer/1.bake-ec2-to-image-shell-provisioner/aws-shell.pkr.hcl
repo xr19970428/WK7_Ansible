@@ -25,7 +25,7 @@ source "amazon-ebs" "aws" {
     owners      = ["099720109477"]
   }
   ssh_username = "ubuntu"
-  ssh_private_key_file = file("/var/lib/jenkins/.ssh/id_rsa")
+  ssh_private_key_file = "/var/lib/jenkins/.ssh/id_rsa"
   tags = {
     Base_AMI_Name  = "jiangren-packer-demo-1"
   }
