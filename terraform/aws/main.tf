@@ -53,7 +53,7 @@ resource "aws_instance" "packer-ansible" {
 
   user_data = <<EOD
 #!/bin/bash
-cat <<EOF > /var/www/html/index.html
+sudo cat <<EOF > /var/www/html/index.html
 <!DOCTYPE html>
 <html>
 <head>
