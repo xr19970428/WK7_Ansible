@@ -8,7 +8,7 @@ pipeline {
     }
     stages {
         stage('Packer Shell') {
-            when {exporession{return params.blPackerShell}}
+            when {expression{return params.blPackerShell}}
             steps {
                 withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
                     // some block
@@ -24,7 +24,7 @@ pipeline {
             }
         }
         stage('Packer Ansible') {
-            when {exporession{return params.blPackerAnsible}}
+            when {expression{return params.blPackerAnsible}}
             steps {
                 withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
                     // some block
@@ -40,7 +40,7 @@ pipeline {
             }
         }
         stage('Launch Instances') {
-            when {exporession{return params.blApply}}
+            when {expression{return params.blApply}}
             steps {
                 withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
                     // some block
@@ -54,7 +54,7 @@ pipeline {
             }
         }
         stage('Destroy Instances') {
-            when {exporession{return params.blDestroy}}
+            when {expression{return params.blDestroy}}
             steps {
                 withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
                     // some block
