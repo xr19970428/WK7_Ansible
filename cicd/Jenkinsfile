@@ -64,7 +64,7 @@ pipeline {
                     // some block
                     dir('ansible') {
                         sh '''
-                            ansible -i inventory.aws_ec2.yaml -u ubuntu -m ping
+                            ansible all -i inventory.aws_ec2.yaml -u ubuntu -m ping
                         '''
                     }
                 }
