@@ -1,0 +1,70 @@
+pipeline {
+    agent any
+    parameters {
+        booleanParam defaultValue: false, name: 'blPackerShell'
+        booleanParam defaultValue: false, name: 'blPackerAnsible'
+        booleanParam defaultValue: false, name: 'blApply'
+        booleanParam defaultValue: false, name: 'blDestroy'
+    }
+    stages {
+        stage('Packer Shell') {
+            when {exporession{return params.blPackerShell}}
+            steps {
+                withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
+                    // some block
+                    dir('packer/1.bake-ec2-to-image-shell-provisioner') {
+                        sh '''
+                            packer init .
+                            packer fmt .
+                            packer validate .
+                            packer build aws-shell.pkr.hcl
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Packer Ansible') {
+            when {exporession{return params.blPackerAnsible}}
+            steps {
+                withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
+                    // some block
+                    dir('packer/2.bake-ec2-to-image-ansible-provisioner') {
+                        sh '''
+                            packer init .
+                            packer fmt .
+                            packer validate .
+                            packer build aws-ansible.pkr.hcl
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Launch Instances') {
+            when {exporession{return params.blApply}}
+            steps {
+                withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
+                    // some block
+                    dir('terraform/aws') {
+                        sh '''
+                            terraform init
+                            terraform apply --auto-approve
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Destroy Instances') {
+            when {exporession{return params.blDestroy}}
+            steps {
+                withAWS(credentials: 'AWS_JR8', region: 'ap-southeast-2') {
+                    // some block
+                    dir('terraform/aws') {
+                        sh '''
+                            terraform destroy --auto-approve
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+---
+# playbook.yml
+- name: 'Jiangren Packer demo2'
+  hosts: default
+  become: yes
+  become_user: root
+  user: ubuntu
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
