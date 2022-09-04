@@ -6,6 +6,9 @@ pipeline {
         booleanParam defaultValue: false, name: 'blApply'
         booleanParam defaultValue: false, name: 'blDestroy'
     }
+    options {
+        ansiColor('xterm')
+    }
     stages {
         stage('Packer Shell') {
             when {expression{return params.blPackerShell}}
