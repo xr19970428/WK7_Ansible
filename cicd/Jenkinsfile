@@ -65,6 +65,8 @@ pipeline {
                     dir('ansible') {
                         sh '''
                             ansible all  -m ping
+                            ansible tag_Packer-Shell -m cat /home/ubuntu/hello.txt
+                            ansible tag_Packer-Ansible -m cat /var/www/html/index.txt
                         '''
                     }
                 }
