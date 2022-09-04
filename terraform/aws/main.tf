@@ -13,6 +13,22 @@ provider "aws" {
   region  = "ap-southeast-2"
 }
 
+resource "aws_security_group_rule" "allow_80" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = "sg-da83229f"
+}
+
+resource "aws_security_group_rule" "allow_443" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = "sg-da83229f"
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "ansible-deployer-key"
   public_key = file("/var/lib/jenkins/.ssh/id_rsa.pub")
