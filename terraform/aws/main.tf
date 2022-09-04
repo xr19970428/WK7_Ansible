@@ -19,6 +19,7 @@ resource "aws_security_group_rule" "allow_80" {
   to_port           = 80
   protocol          = "tcp"
   security_group_id = "sg-da83229f"
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "allow_443" {
@@ -27,6 +28,7 @@ resource "aws_security_group_rule" "allow_443" {
   to_port           = 443
   protocol          = "tcp"
   security_group_id = "sg-da83229f"
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_key_pair" "deployer" {
