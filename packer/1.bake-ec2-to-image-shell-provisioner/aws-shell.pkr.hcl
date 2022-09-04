@@ -25,6 +25,9 @@ source "amazon-ebs" "aws" {
     owners      = ["099720109477"]
   }
   ssh_username = "ubuntu"
+  tags = {
+    Base_AMI_Name  = "jiangren-packer-demo-1"
+  }
 }
 
 build {

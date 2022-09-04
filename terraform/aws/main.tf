@@ -18,12 +18,39 @@ resource "aws_key_pair" "deployer" {
   public_key = file("/var/lib/jenkins/.ssh/id_rsa.pub")
 }
 
-resource "aws_instance" "ansible-aws" {
-  ami           = "ami-0e040c48614ad1327" //ubuntu-22.04
+data "aws_ami" "image_packer-shell" {
+  most_recent = true
+  owners = ["self"]
+  filter {
+    name = "tag:Base_AMI_Name"
+    values = ["jiangren-packer-demo-1"]
+  }
+}
+
+data "aws_ami" "image_packer-ansible" {
+  most_recent = true
+  owners = ["self"]
+  filter {
+    name = "tag:Base_AMI_Name"
+    values = ["jiangren-packer-demo-2"]
+  }
+}
+
+resource "aws_instance" "packer-shell" {
+  ami           = "${data.aws_ami.image_packer-shell.id}"
   instance_type = "t2.micro"
 
   tags = {
-    Name = "Ansible-AWS"
+    Name = "Packer-Shell"
+  }
+}
+
+resource "aws_instance" "packer-ansible" {
+  ami           = "${data.aws_ami.image_packer-ansible.id}"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "Packer-Ansible"
   }
 }
 
