@@ -80,6 +80,14 @@ pipeline {
                             terraform destroy --auto-approve
                         '''
                     }
+                    sh '''
+                        AMIList=($(aws ec2 describe-images --owners=self --filters "Name=name,Values=*packer-demo*" --query 'Images[*].[ImageId]' --output text))
+                        for i in $AMIList
+                        do
+                            echo "Destroying AMI ID: $i"
+                        done
+                    '''
+                    //aws ec2 deregister-image --image-id $i
                 }
             }
         }
