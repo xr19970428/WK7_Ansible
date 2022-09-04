@@ -39,6 +39,7 @@ data "aws_ami" "image_packer-ansible" {
 resource "aws_instance" "packer-shell" {
   ami           = "${data.aws_ami.image_packer-shell.id}"
   instance_type = "t2.micro"
+  key_name = "${aws_key_pair.deployer.key_name}"
 
   tags = {
     Name = "Packer-Shell"
@@ -48,6 +49,7 @@ resource "aws_instance" "packer-shell" {
 resource "aws_instance" "packer-ansible" {
   ami           = "${data.aws_ami.image_packer-ansible.id}"
   instance_type = "t2.micro"
+  key_name = "${aws_key_pair.deployer.key_name}"
 
   tags = {
     Name = "Packer-Ansible"
