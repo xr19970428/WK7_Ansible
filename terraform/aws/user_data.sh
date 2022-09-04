@@ -1,7 +1,5 @@
 #!/bin/bash
-systemctl start nginx.service
-systemctl enable nginx.service
-cat <<\EOF > /var/www/html/index.html
+sudo cat <<\EOF > /var/www/html/index.html
 <!DOCTYPE html>
 <html>
 <head>
