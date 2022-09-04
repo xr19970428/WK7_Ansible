@@ -55,7 +55,7 @@ resource "aws_instance" "packer-ansible" {
     #!/bin/bash
     systemctl start nginx.service
     systemctl enable nginx.service
-    cat <<EOF > /var/www/html/index.html
+    cat <<EOF
     <!DOCTYPE html>
     <html>
     <head>
@@ -73,7 +73,7 @@ resource "aws_instance" "packer-ansible" {
     <p>Hello from $(hostname -f)</p>
     </body>
     </html>
-    EOF
+    EOF > /var/www/html/index.html
 EOD
 
   tags = {
