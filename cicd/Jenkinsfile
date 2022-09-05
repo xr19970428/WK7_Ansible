@@ -99,7 +99,7 @@ pipeline {
                         sh '''
                             terraform destroy --auto-approve
                         '''
-                        sh 'del_ami.sh'
+                        sh 'chmod +x ./del_ami.sh && ./del_ami.sh'
                     }
                 }
             }
