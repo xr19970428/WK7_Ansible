@@ -24,8 +24,8 @@ resource "aws_security_group_rule" "allow_80" {
 
 resource "aws_security_group_rule" "allow_443" {
   type              = "ingress"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 8080
+  to_port           = 8080
   protocol          = "tcp"
   security_group_id = "sg-da83229f"
   cidr_blocks       = ["0.0.0.0/0"]
