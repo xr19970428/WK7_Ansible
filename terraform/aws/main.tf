@@ -60,7 +60,7 @@ resource "aws_instance" "packer-shell" {
   key_name = "${aws_key_pair.deployer.key_name}"
 
   tags = {
-    Name = "Packer-Shell"
+    Name = "shell"
     Project = "JRAnsible"
   }
 }
@@ -94,7 +94,7 @@ EOF
 EOD
 
   tags = {
-    Name = "Packer-Ansible"
+    Name = "ansible"
     Project = "JRAnsible"
   }
 }

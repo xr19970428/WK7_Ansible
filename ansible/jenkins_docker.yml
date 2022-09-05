@@ -1,12 +1,11 @@
+---
 - hosts: all
   become: yes
-  gather_facts: false
+  become_user: root
+  user: ubuntu
   tasks:
-    - name: Install docker compose
-      remote_user: ubuntu
+    - name: Update repositories cache and install "docker-compose" package
       apt:
-        name: 'docker-compose'
-        state: present
+        name: docker-compose
+        state: present # declerative
         update_cache: yes
-      tags:
-        - docker-compose
