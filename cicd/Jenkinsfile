@@ -4,7 +4,7 @@ pipeline {
         booleanParam defaultValue: false, name: 'blPackerShell'
         booleanParam defaultValue: false, name: 'blPackerAnsible'
         booleanParam defaultValue: false, name: 'blApplyAWS'
-        booleanParam defaultValue: false, name: 'blApplyAzure'
+       // booleanParam defaultValue: false, name: 'blApplyAzure'
         booleanParam defaultValue: false, name: 'blUpdateAWS'
         booleanParam defaultValue: false, name: 'blDestroy'
 
@@ -12,9 +12,9 @@ pipeline {
     options {
         ansiColor('xterm')
     }
-    environment {
+/*    environment {
         AZ_CRED = credentials('Azure_William')
-    }
+    } */
     stages {
         stage('Packer Shell') {
             when {expression{return params.blPackerShell}}
@@ -62,7 +62,7 @@ pipeline {
                 }
             }
         }
-        stage('Launch AZ Instances') {
+/*        stage('Launch AZ Instances') {
             when {expression{return params.blApplyAzure}}
             steps {
                 dir('terraform/az') {
@@ -73,7 +73,7 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
         stage('Update AWS EC2') {
             when {expression{return params.blUpdateAWS}}
             steps {
@@ -84,6 +84,7 @@ pipeline {
                             ansible all  -m ping
                             ansible tag_shell -a "cat /home/ubuntu/hello.txt"
                             ansible tag_ansible -a "curl localhost"
+                            ansible-playbook jenkins_docker.yml 
                         '''
                     }
                 }
@@ -104,14 +105,14 @@ pipeline {
                         for i in $AMIList
                         do
                             echo "Destroying AMI ID: $i"
+                            aws ec2 deregister-image --image-id $i
                         done
                     '''
-                    //aws ec2 deregister-image --image-id $i
-                    dir('terraform/az') {
+/*                    dir('terraform/az') {
                         sh '''
                             terraform destroy --auto-approve
                         '''
-                    }
+                    }*/
                 }
             }
         }

@@ -1,0 +1,12 @@
+- hosts: all
+become: yes
+gather_facts: false
+tasks:
+  - name: Install docker compose
+    remote_user: ubuntu
+    apt:
+      name: 'docker-compose'
+      state: present
+      update_cache: yes
+    tags:
+      - docker-compose
