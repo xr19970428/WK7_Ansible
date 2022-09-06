@@ -18,7 +18,7 @@ resource "aws_security_group_rule" "allow_80" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  security_group_id = "sg-da83229f"
+  security_group_id = "	vpc-05e2bb5f4f5c75d31"
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
@@ -27,7 +27,7 @@ resource "aws_security_group_rule" "allow_8080" {
   from_port         = 8080
   to_port           = 8080
   protocol          = "tcp"
-  security_group_id = "sg-da83229f"
+  security_group_id = "	vpc-05e2bb5f4f5c75d31"
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
